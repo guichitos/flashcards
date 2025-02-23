@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Card; 
+use App\Models\Card;
 
 class CardController extends Controller
 {
-    public function index()
+    /**
+     * Mostrar todas las tarjetas del usuario autenticado.
+     */
+    public function index(Request $request)
     {
-        return response()->json(Card::all(), 200);
+        $cards = $request->user()->cards; // Solo devuelve las tarjetas del usuario autenticado
+        return response()->json($cards, 200);
     }
 
+    /**
+     * Guardar una nueva tarjeta.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -19,37 +26,49 @@ class CardController extends Controller
             'answer' => 'required|string|max:255',
         ]);
 
-        $card = Card::create($request->all());
-        return response()->json($card, 201);
+        $card = $request->user()->cards()->create([
+            'question' => $request->input('question'),
+            'answer' => $request->input('answer'),
+        ]);
+
+        return response()->json(['message' => 'Tarjeta creada', 'card' => $card], 201);
     }
 
-    public function destroy($id)
+    /**
+     * Actualizar una tarjeta existente.
+     */
+    public function update(Request $request, Card $card)
     {
-        $card = Card::find($id);
-        if (!$card) {
-            return response()->json(['message' => 'Tarjeta no encontrada'], 404);
+        // Verifica que la tarjeta pertenece al usuario autenticado
+        if ($request->user()->id !== $card->user_id) {
+            return response()->json(['message' => 'No autorizado'], 403);
         }
 
-        $card->delete();
-        return response()->json(['message' => 'Tarjeta eliminada'], 200);
-    }
-
-    public function update(Request $request, $id)
-    {
         $request->validate([
             'question' => 'required|string|max:255',
             'answer' => 'required|string|max:255',
         ]);
 
-        $card = Card::find($id);
-
-        if (!$card) {
-            return response()->json(['message' => 'Tarjeta no encontrada'], 404);
-        }
-
-        $card->update($request->all());
+        $card->update([
+            'question' => $request->input('question'),
+            'answer' => $request->input('answer'),
+        ]);
 
         return response()->json(['message' => 'Tarjeta actualizada', 'card' => $card], 200);
     }
 
+    /**
+     * Eliminar una tarjeta.
+     */
+    public function destroy(Request $request, Card $card)
+    {
+        // Verifica que la tarjeta pertenece al usuario autenticado
+        if ($request->user()->id !== $card->user_id) {
+            return response()->json(['message' => 'No autorizado'], 403);
+        }
+
+        $card->delete();
+
+        return response()->json(['message' => 'Tarjeta eliminada'], 200);
+    }
 }

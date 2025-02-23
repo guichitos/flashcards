@@ -14,4 +14,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    // Vista protegida para ver tarjetas
+    Route::get('/cards', function () {
+        return view('cards');
+    })->name('cards');
 });

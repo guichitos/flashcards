@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relación con users
             $table->string('question');
             $table->string('answer');
             $table->timestamps();
