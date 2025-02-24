@@ -9,8 +9,8 @@ export default {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './resources/js/**/*.vue', // ✅ Asegurar que detecta archivos Vue
     ],
-
     theme: {
         extend: {
             fontFamily: {
@@ -18,6 +18,5 @@ export default {
             },
         },
     },
-
     plugins: [forms, typography],
 };

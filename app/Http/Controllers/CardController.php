@@ -60,15 +60,21 @@ class CardController extends Controller
     /**
      * Eliminar una tarjeta.
      */
-    public function destroy(Request $request, Card $card)
+    public function destroy($id)
     {
-        // Verifica que la tarjeta pertenece al usuario autenticado
-        if ($request->user()->id !== $card->user_id) {
-            return response()->json(['message' => 'No autorizado'], 403);
+        $card = Card::find($id);
+    
+        if (!$card) {
+            return response()->json(['message' => 'Tarjeta no encontrada'], 404);
         }
-
+    
+        // 🔐 Asegurar que el usuario solo pueda eliminar sus propias tarjetas
+        if ($card->user_id !== auth()->id()) {
+            return response()->json(['message' => 'No tienes permiso para eliminar esta tarjeta'], 403);
+        }
+    
         $card->delete();
-
         return response()->json(['message' => 'Tarjeta eliminada'], 200);
     }
+    
 }
