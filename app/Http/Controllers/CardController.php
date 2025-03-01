@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Card;
+use Illuminate\Support\Facades\Log;
+
 
 class CardController extends Controller
 {
@@ -34,28 +36,27 @@ class CardController extends Controller
         return response()->json(['message' => 'Tarjeta creada', 'card' => $card], 201);
     }
 
-    /**
-     * Actualizar una tarjeta existente.
-     */
-    public function update(Request $request, Card $card)
+    public function update(Request $request, $id)
     {
-        // Verifica que la tarjeta pertenece al usuario autenticado
-        if ($request->user()->id !== $card->user_id) {
-            return response()->json(['message' => 'No autorizado'], 403);
+        $id = intval($id); // 🔹 Asegurar que el ID sea un número válido
+
+        if (!$id) {
+            return response()->json(['error' => 'ID inválido'], 400);
         }
 
-        $request->validate([
-            'question' => 'required|string|max:255',
-            'answer' => 'required|string|max:255',
-        ]);
+        $card = Card::find($id);
 
-        $card->update([
-            'question' => $request->input('question'),
-            'answer' => $request->input('answer'),
-        ]);
+        if (!$card) {
+            return response()->json(['error' => 'Tarjeta no encontrada'], 404);
+        }
 
-        return response()->json(['message' => 'Tarjeta actualizada', 'card' => $card], 200);
+        $card->update($request->only(['question', 'answer']));
+
+        return response()->json($card);
     }
+
+    
+
 
     /**
      * Eliminar una tarjeta.

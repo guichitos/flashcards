@@ -7,6 +7,8 @@ use App\Http\Controllers\CardController;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/cards', [CardController::class, 'index']); // Obtener todas las tarjetas del usuario autenticado
     Route::post('/cards', [CardController::class, 'store']); // Crear una tarjeta
-    Route::put('/cards/{id}', [CardController::class, 'update']); // Editar una tarjeta
+    Route::put('/cards/{id}', [CardController::class, 'update']); // 🔹 Sin auth:sanctum    
     Route::delete('/cards/{id}', [CardController::class, 'destroy']); // Eliminar una tarjeta
 });
+
+
