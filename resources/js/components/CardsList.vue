@@ -18,12 +18,27 @@
       <div v-if="cards.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div v-for="card in cards" :key="card.id" class="bg-white shadow-lg rounded-lg p-6 border relative flex flex-col justify-between">
           <div class="absolute top-2 right-2 flex gap-2">
-            <button @click="startEditing(card)" class="border border-blue-500 text-blue-500 rounded-full p-2 hover:bg-blue-500 hover:text-white transition w-8 h-8">✏️</button>
-            <button @click="deleteCard(card.id)" class="border border-gray-500 text-gray-500 rounded-full p-2 hover:bg-gray-500 hover:text-white transition w-8 h-8">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <button 
+  @click="startEditing(card)" 
+  class="border border-gray-500 text-gray-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-500 hover:text-white transition p-0"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-4.036a2.5 2.5 0 013.536 3.536l-8.5 8.5A2 2 0 0110 17H7.5a1 1 0 01-1-1v-2.5a2 2 0 01.586-1.414l8.5-8.5z" />
+  </svg>
+</button>
+
+
+
+<button 
+  @click="deleteCard(card.id)" 
+  class="border border-gray-500 text-gray-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-500 hover:text-white transition p-0"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m2 0v14a2 2 0 01-2 2H8a2 2 0 01-2-2V6h12z" />
+  </svg>
+</button>
+
+
           </div>
 
           <!-- Modo Edición -->
