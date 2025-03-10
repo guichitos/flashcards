@@ -20,3 +20,7 @@ Route::middleware([
         return view('cards');
     })->name('cards');
 });
+
+Route::get('/cards/{any}', function () {
+    return view('cards');
+})->where('any', '.*');
