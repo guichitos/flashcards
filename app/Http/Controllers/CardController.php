@@ -26,11 +26,13 @@ class CardController extends Controller
         $request->validate([
             'question' => 'required|string|max:255',
             'answer' => 'required|string|max:255',
+            'visible' => 'boolean',
         ]);
 
         $card = $request->user()->cards()->create([
             'question' => $request->input('question'),
             'answer' => $request->input('answer'),
+            'visible' => $request->input('visible', true),
         ]);
 
         return response()->json(['message' => 'Tarjeta creada', 'card' => $card], 201);
@@ -50,7 +52,8 @@ class CardController extends Controller
             return response()->json(['error' => 'Tarjeta no encontrada'], 404);
         }
 
-        $card->update($request->only(['question', 'answer']));
+        $card->update($request->only(['question', 'answer', 'visible']));
+
 
         return response()->json($card);
     }

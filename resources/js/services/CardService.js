@@ -87,6 +87,21 @@ const startEditing = (card) => {
   
   };
 
+  const toggleVisibility = async (card) => {
+    try {
+      const updatedVisible = !card.visible; // Cambiar el estado
+  
+      await axios.put(`/api/cards/${card.id}`, { visible: updatedVisible }, {
+        headers: { Authorization: token }
+      });
+  
+      card.visible = updatedVisible; // Actualizar la UI
+    } catch (error) {
+      console.error("❌ Error al cambiar visibilidad:", error);
+    }
+  };
+  
+
 const cancelEdit = () => {
   editingCard.value = null;
 };
@@ -102,5 +117,6 @@ export default {
   editedQuestion,
   editedAnswer,
   saveEdit,
-  cancelEdit
+  cancelEdit,
+  toggleVisibility
 };
