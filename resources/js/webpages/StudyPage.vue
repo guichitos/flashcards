@@ -5,6 +5,8 @@
       <CardViewer 
         :card="currentCard" 
         :nextCard="nextCard" 
+        :previousCard="previousCard"  
+        :restartStudy="restartStudy"  
       />
   
       <p class="mt-4 text-gray-600">Tarjeta {{ currentIndex + 1 }} de {{ cards.length }}</p>
@@ -19,11 +21,11 @@
   export default {
     components: { CardViewer },
     setup() {
-      const { cards, currentCard, nextCard, currentIndex, fetchCards } = StudyService;
+      const { cards, currentCard, nextCard, previousCard, restartStudy, currentIndex, fetchCards } = StudyService;
   
       onMounted(fetchCards);
   
-      return { cards, currentCard, nextCard, currentIndex };
+      return { cards, currentCard, nextCard, previousCard, restartStudy, currentIndex };
     }
   };
   </script>

@@ -25,10 +25,29 @@ const nextCard = () => {
   }
 };
 
+// 🔹 Función para ir a la tarjeta anterior
+const previousCard = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value -= 1; // 🔥 Retrocede una tarjeta
+    currentCard.value = cards.value[currentIndex.value];
+  }
+};
+
+// 🔹 Función para ir a la primera tarjeta
+const restartStudy = () => {
+  if (cards.value.length > 0) {
+    currentIndex.value = 0; // 🔥 Ir a la primera tarjeta
+    currentCard.value = cards.value[0];
+  }
+};
+
+
 export default {
   cards,
   currentIndex,
   currentCard,
   fetchCards,
-  nextCard
+  nextCard,
+  previousCard,
+  restartStudy
 };
