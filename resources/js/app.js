@@ -5,11 +5,13 @@ import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
 import CardsPage from './webpages/CardsPage.vue';
 import StudyPage from './webpages/StudyPage.vue'; // ✅ Importamos la nueva página
+import ConfigPage from './webpages/ConfigPage.vue';
 
 
 const routes = [
   { path: '/cards', component: CardsPage },
-{ path: '/cards/study', component: StudyPage } // ✅ Agregamos la nueva ruta
+{ path: '/cards/study', component: StudyPage },
+{ path: '/cards/config', component: ConfigPage },
 ];
 
 const router = createRouter({

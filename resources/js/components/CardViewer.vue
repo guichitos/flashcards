@@ -9,14 +9,15 @@
           <p class="text-lg font-bold text-center">{{ card.answer }}</p>
         </div>
       </div>
+      
     </div>
 
     <!-- ✅ Agregamos botones para "Anterior" e "Inicio" -->
     <div class="mt-4 flex gap-4">
-      <button @click="previousCard" class="bg-gray-500 text-white px-4 py-2 rounded">
+      <button @click="previousCard" class="bg-blue-500 text-white px-4 py-2 rounded">
         Anterior
       </button>
-      <button @click="restartStudy" class="bg-red-500 text-white px-4 py-2 rounded">
+      <button @click="restartStudy" class="bg-blue-500 text-white px-4 py-2 rounded">
         Inicio
       </button>
       <button @click="nextCard" class="bg-blue-500 text-white px-4 py-2 rounded">
@@ -81,4 +82,19 @@ export default {
 .card-back {
   transform: rotateY(180deg);
 }
+
+
+.card-front {
+  background: #fffffb; /* amarillo claro para pregunta */
+  color: #4b5563; /* gris oscuro */
+  font-size: 1.25rem;
+}
+
+.card-back {
+  background: #e5f1f8; /* azul claro para respuesta */
+  color: #1e3a8a; /* azul fuerte */
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
 </style>
